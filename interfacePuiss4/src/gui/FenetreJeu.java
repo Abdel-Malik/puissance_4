@@ -108,8 +108,8 @@ public class FenetreJeu extends JFrame{
 				this.colonnes[i].addActionListener(new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						// TODO Auto-generated method stub
-				
+						coupJouee.setColonne(((BoutonColonne)e.getSource()).getColonne());
+						coupJouee.setCoupJouee(true);
 					}
 				});
 				panel.add(this.colonnes[i]);
@@ -147,5 +147,10 @@ public class FenetreJeu extends JFrame{
 
 		public void setFonctionnement(boolean b) {
 			this.fonctionne = false;
+		}
+
+
+		public Coup getCoup() {
+			return this.coupJouee;
 		}
 }
