@@ -4,6 +4,7 @@ public class Plateau {
 	public static int LIGNES = 6;
 	public static int COLONNES = 7;
 	private int[][] grille;
+	//private Couple joueurs;
 	private boolean J1;
 	private boolean jeuClos;
 	
@@ -52,13 +53,13 @@ public class Plateau {
 			try {
 				int j = insererJeton(i,jeton);
 				if(gagne(i,j) != -1){
-					System.out.printf("Gagné");
+					System.out.printf("Gagné\n");
 					jeuClos = true;
 				}else{
 					J1 = !J1;
 				}
 			} catch (ColonnePleineException e) {
-				System.out.printf("colonne %d pleine, jouez ailleurs\n",e.getColonnePleine());
+				System.out.printf("colonne %d pleine, jouez ailleurs\n",e.getColonnePleine()+1);
 			}
 		}else{
 			int res = 2;
@@ -96,15 +97,15 @@ public class Plateau {
 	private boolean colonneDe4(int i,int j){
 		int val = 1;
 		int jeton = valeurGrille(i,j);
-		int jp = 1;
-		while(valeurGrille(i,j+jp) == jeton){
+		int ip = 1;
+		while(valeurGrille(i+ip,j) == jeton){
 			val++;
-			jp++;
+			ip++;
 		}
-		jp = 1;
-		while(valeurGrille(i,j-jp) == jeton){
+		ip = 1;
+		while(valeurGrille(i-ip,j) == jeton){
 			val++;
-			jp++;
+			ip++;
 		}
 		return (val==4);
 	}
@@ -144,5 +145,22 @@ public class Plateau {
 		if((i>=0 && i <COLONNES) && (j>=0 && j <LIGNES))
 			res = grille[j][i];
 		return res;
+	}
+
+	public int getLigne(int colonne) {
+		int index = 0;
+		while(index < Plateau.LIGNES && this.grille[index][colonne]==0)
+			index++;
+		if(index == Plateau.LIGNES)
+			index--;
+		return index;
+	}
+
+	public boolean isJoueur1() {
+		return this.J1;
+	}
+	
+	public boolean jeuClos(){
+		return this.jeuClos;
 	}
 }

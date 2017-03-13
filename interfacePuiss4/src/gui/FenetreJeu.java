@@ -1,5 +1,6 @@
 package gui;
 
+import java.awt.Checkbox;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -16,7 +17,7 @@ public class FenetreJeu extends JFrame{
 				//**	Attributs	**//
 	//Valeurs statiques (tailles et positions des éléments)
 	public static Dimension DEFAULT_DIMENSION = new Dimension(955,800);
-	public static Point POSITION = new Point(100,30);
+	public static Point POSITION = new Point(0,30);
 	public static final int DEFAULT_BUTTON_SIZE_X = 100;
 	public static final int DEFAULT_BUTTON_SIZE_Y = 50;
 	public static final int DEFAULT_SPEED = 6;
@@ -43,7 +44,7 @@ public class FenetreJeu extends JFrame{
 				//**	Constructeur	**//
 		public FenetreJeu(String name){
 			super(name);
-			this.fonctionne = false;
+			this.fonctionne = true;
 			this.largeur = DEFAULT_DIMENSION.width;
 			this.hauteur = DEFAULT_DIMENSION.height;
 			this.fps = DEFAULT_SPEED;
@@ -76,7 +77,6 @@ public class FenetreJeu extends JFrame{
 			g = new JPanel();
 			d = new JPanel();
 			this.panneau = new PanneauJeu();
-			panneau.setBackground(Color.BLUE);
 			
 			d.setLayout(new BoxLayout(d, BoxLayout.Y_AXIS));
 			paneAffichage = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,g,d);
@@ -86,7 +86,20 @@ public class FenetreJeu extends JFrame{
 		}
 		
 		private void structurationFenetre(){
-
+			structurationSplitPaneGauche();
+			structurationSplitPaneDroit();
+		}
+		
+		private void structurationSplitPaneGauche() {
+			BoxLayout layoutGauche = new BoxLayout(g, BoxLayout.Y_AXIS);
+			g.setLayout(layoutGauche);
+			g.add(new JLabel("J1"));
+			g.add(new JLabel("J2"));
+//			g.add(new JComboBox<String>());
+			g.add(new JButton("demarrer"));
+			g.add(new JButton("abandonner"));
+		}
+		private void structurationSplitPaneDroit() {
 			int h = DEFAULT_BUTTON_SIZE_Y+10;
 			JPanel panelBoutons = new JPanel();
 			panelBoutons.setMaximumSize(new Dimension(this.largeur, h));
@@ -100,7 +113,8 @@ public class FenetreJeu extends JFrame{
 			d.add(panelBoutons);
 			d.add(panneau);
 		}
-		
+
+
 		private void initialisationBoutons(JPanel panel){
 			this.colonnes = new BoutonColonne[Plateau.COLONNES];
 			for(int i =0; i<Plateau.COLONNES;i++){
@@ -108,8 +122,10 @@ public class FenetreJeu extends JFrame{
 				this.colonnes[i].addActionListener(new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						coupJouee.setColonne(((BoutonColonne)e.getSource()).getColonne());
-						coupJouee.setCoupJouee(true);
+						if(fonctionne){
+							coupJouee.setColonne(((BoutonColonne)e.getSource()).getColonne());
+							coupJouee.setCoupJouee(true);
+						}
 					}
 				});
 				panel.add(this.colonnes[i]);
@@ -152,5 +168,10 @@ public class FenetreJeu extends JFrame{
 
 		public Coup getCoup() {
 			return this.coupJouee;
+		}
+		
+		public void repeindre(int i, int j, Jeton jeton){
+			this.panneau.ajoutJeton(i,j,jeton);
+			this.panneau.repaint();
 		}
 }
