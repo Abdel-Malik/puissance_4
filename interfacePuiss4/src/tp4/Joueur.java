@@ -11,4 +11,8 @@ public class Joueur {
 		this.nomJoueur = nomJoueur;
 		this.numero = numeroJoueur;
 	}
+
+	public boolean isIA() {
+		return ia;
+	}
 }

@@ -4,14 +4,15 @@ public class Plateau {
 	public static int LIGNES = 6;
 	public static int COLONNES = 7;
 	private int[][] grille;
-	//private Couple joueurs;
 	private boolean J1;
+	private Joueur[] joueurs;
 	private boolean jeuClos;
 	
 	public Plateau(){
 		grille = new int[LIGNES][COLONNES];
 		J1 = true;
 		jeuClos = false;
+		joueurs = new Joueur[2];
 		initialiserGrille();
 	}
 	
@@ -43,23 +44,19 @@ public class Plateau {
     }
 
 	
-	public void joue(int i){
+	public void joue(int i) throws ColonnePleineException{
 		if(!jeuClos){
 			if(i<0 || i >=COLONNES)
 				System.out.printf("clonne %d inexistante, jouez dans [0;%d]\n",i,COLONNES);
 			int jeton = 2;
 			if(J1)
 				jeton = 1;
-			try {
-				int j = insererJeton(i,jeton);
-				if(gagne(i,j) != -1){
-					System.out.printf("Gagné\n");
-					jeuClos = true;
-				}else{
-					J1 = !J1;
-				}
-			} catch (ColonnePleineException e) {
-				System.out.printf("colonne %d pleine, jouez ailleurs\n",e.getColonnePleine()+1);
+			int j = insererJeton(i,jeton);
+			if(gagne(i,j) != -1){
+				System.out.printf("Gagné\n");
+				jeuClos = true;
+			}else{
+				J1 = !J1;
 			}
 		}else{
 			int res = 2;
@@ -162,5 +159,17 @@ public class Plateau {
 	
 	public boolean jeuClos(){
 		return this.jeuClos;
+	}
+
+	public void setJoueur1(Joueur joueur) {
+		this.joueurs[0] = joueur;
+		
+	}
+	public void setJoueur2(Joueur joueur) {
+		this.joueurs[1] = joueur;		
+	}
+
+	public boolean isIA() {
+		return this.joueurs[1].isIA();
 	}
 }

@@ -174,4 +174,12 @@ public class FenetreJeu extends JFrame{
 			this.panneau.ajoutJeton(i,j,jeton);
 			this.panneau.repaint();
 		}
+
+
+		public void choixIA(int choixColonne) {
+			if(fonctionne){
+				coupJouee.setColonne(choixColonne);
+				coupJouee.setCoupJouee(true);
+			}
+		}
 }
