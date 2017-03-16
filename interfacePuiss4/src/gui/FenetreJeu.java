@@ -17,7 +17,7 @@ public class FenetreJeu extends JFrame{
 				//**	Attributs	**//
 	//Valeurs statiques (tailles et positions des éléments)
 	public static Dimension DEFAULT_DIMENSION = new Dimension(955,800);
-	public static Point POSITION = new Point(0,30);
+	public static Point POSITION = new Point(200,40);
 	public static final int DEFAULT_BUTTON_SIZE_X = 100;
 	public static final int DEFAULT_BUTTON_SIZE_Y = 50;
 	public static final int DEFAULT_SPEED = 6;
@@ -72,7 +72,6 @@ public class FenetreJeu extends JFrame{
 			this.setResizable(false);
 			this.setLocation(POSITION);
 			this.setSize(DEFAULT_DIMENSION);
-			this.setLocationRelativeTo(null);
 			
 			g = new JPanel();
 			d = new JPanel();

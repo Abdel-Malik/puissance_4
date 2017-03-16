@@ -18,6 +18,7 @@ public class CentreJeu extends Thread{
 		p = new Plateau();
 		ia = new StupideIA();
 		c = fj.getCoup();
+		fj.setVisible(false);
 		initialiserJoueurs();
 		
 		this.start();
@@ -25,8 +26,17 @@ public class CentreJeu extends Thread{
 	
 	private void initialiserJoueurs(){
 		PageJoueur page = new PageJoueur();
-		p.setJoueur1(new Joueur(false, "Amalik",1));
-		p.setJoueur2(new Joueur(true, "RobotBoyDumb",2));
+		while(page.isVisible()){
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		p.setJoueur1(page.getJoueur1());
+		p.setJoueur2(page.getJoueur2());
+		fj.setVisible(true);
 	}
 
 	public void run(){
