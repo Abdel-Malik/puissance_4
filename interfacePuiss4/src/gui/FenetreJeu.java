@@ -104,8 +104,15 @@ public class FenetreJeu extends JFrame{
 			g.setLayout(layoutGauche);
 			g.add(this.nomJ1);
 			g.add(this.nomJ2);
-			//new JButton
-			g.add(new JButton("redémarrer"));
+			JButton redemarrer = new JButton("redémarrer");
+			/*redemarrer.addActionListener(new ActionListener() {				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					panneau.reinitialiserJeu();
+					
+				}
+			});
+			g.add(redemarrer);*/
 			//g.add(new JButton("abandonner"));
 		}
 		private void structurationSplitPaneDroit() {
@@ -147,10 +154,7 @@ public class FenetreJeu extends JFrame{
 		public void afficherGrille(){
 			//this.panneau.affichageJeu();
 		}
-		
-		/*public void afficherGrilleInitial(Grille grille) {
-			this.panneau.affichageinitial(grille);
-		}*/
+
 		
 		//Getter
 		public PanneauJeu getPanneau(){
@@ -160,12 +164,6 @@ public class FenetreJeu extends JFrame{
 			return this.fonctionne;
 		}
 		
-		/*public int getHauteurPanneau() {
-			return this.panneau.getHeight();
-		}
-		public int getLargeurPanneau() {
-			return this.panneau.getWidth();
-		}*/
 		public int getfps() {
 			return this.fps;
 		}
@@ -181,7 +179,6 @@ public class FenetreJeu extends JFrame{
 		
 		public void repeindre(int i, int j, Jeton jeton){
 			this.panneau.ajoutJeton(i,j,jeton);
-			//this.panneau.repaint();
 		}
 
 
