@@ -19,4 +19,8 @@ public class Joueur {
 	public String getName(){
 		return nomJoueur;
 	}
+	
+	public Joueur copie(){
+		return new Joueur(ia,nomJoueur,numero);
+	}
 }

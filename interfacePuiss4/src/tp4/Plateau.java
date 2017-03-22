@@ -184,4 +184,26 @@ public class Plateau {
 			b = j2IsIA();
 		return b;
 	}
+	
+	public Plateau copiePlateau(){
+		Plateau copie = new Plateau();
+		copieGrille(copie.grille);
+		copie.J1 = J1;
+		copieJoueurs(copie.joueurs);
+		copie.jeuClos = jeuClos;
+		
+		return copie;
+	}
+	private void copieGrille(int[][] g){
+		for(int i = 0; i < LIGNES; i++){
+			for(int j =0; j < COLONNES; j++){
+				g[i][j] = this.grille[i][j];
+			}
+		}
+	}
+	private void copieJoueurs(Joueur[] j){
+		j[0] = this.joueurs[0].copie();
+		j[1] = this.joueurs[1].copie();
+	}
+
 }
