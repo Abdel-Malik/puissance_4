@@ -15,4 +15,8 @@ public class Joueur {
 	public boolean isIA() {
 		return ia;
 	}
+	
+	public String getName(){
+		return nomJoueur;
+	}
 }

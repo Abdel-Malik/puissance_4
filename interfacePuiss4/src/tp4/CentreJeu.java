@@ -36,6 +36,7 @@ public class CentreJeu extends Thread{
 		}
 		p.setJoueur1(page.getJoueur1());
 		p.setJoueur2(page.getJoueur2());
+		fj.setNomJoueurs(page.getJoueur1().getName(), page.getJoueur2().getName());
 		fj.setVisible(true);
 	}
 

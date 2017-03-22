@@ -3,6 +3,7 @@ package gui;
 import java.awt.Checkbox;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
@@ -35,6 +36,8 @@ public class FenetreJeu extends JFrame{
 	private PanneauJeu panneau;
 	private	JPanel g;
 	private	JPanel d;
+	private JLabel nomJ1;
+	private JLabel nomJ2;
 	private JSplitPane paneAffichage;
 	//boutons de contrôle
 	private BoutonColonne[] colonnes;
@@ -73,7 +76,15 @@ public class FenetreJeu extends JFrame{
 			this.setSize(DEFAULT_DIMENSION);
 			
 			g = new JPanel();
+			g.setBackground(Color.darkGray);
 			d = new JPanel();
+			nomJ1 = new JLabel();
+			nomJ1.setForeground(Color.red);
+			nomJ2 = new JLabel();
+			nomJ2.setForeground(Color.yellow);
+			Font f = new Font(Font.SERIF, 1, 20);
+			nomJ1.setFont(f);
+			nomJ2.setFont(f);
 			this.panneau = new PanneauJeu();
 			
 			d.setLayout(new BoxLayout(d, BoxLayout.Y_AXIS));
@@ -91,11 +102,10 @@ public class FenetreJeu extends JFrame{
 		private void structurationSplitPaneGauche() {
 			BoxLayout layoutGauche = new BoxLayout(g, BoxLayout.Y_AXIS);
 			g.setLayout(layoutGauche);
-			g.add(new JLabel("J1"));
-			g.add(new JLabel("J2"));
-//			g.add(new JComboBox<String>());
-			g.add(new JButton("demarrer"));
-			g.add(new JButton("abandonner"));
+			g.add(this.nomJ1);
+			g.add(this.nomJ2);
+			g.add(new JButton("redémarrer"));
+			//g.add(new JButton("abandonner"));
 		}
 		private void structurationSplitPaneDroit() {
 			int h = DEFAULT_BUTTON_SIZE_Y+10;
@@ -180,4 +190,9 @@ public class FenetreJeu extends JFrame{
 				coupJouee.setCoupJouee(true);
 			}
 		}
+		
+		public void setNomJoueurs(String j1, String j2){
+			this.nomJ1.setText(j1);
+			this.nomJ2.setText(j2);
+}
 }
