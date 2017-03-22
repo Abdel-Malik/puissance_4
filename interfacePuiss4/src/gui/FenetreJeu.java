@@ -104,6 +104,7 @@ public class FenetreJeu extends JFrame{
 			g.setLayout(layoutGauche);
 			g.add(this.nomJ1);
 			g.add(this.nomJ2);
+			//new JButton
 			g.add(new JButton("redémarrer"));
 			//g.add(new JButton("abandonner"));
 		}
@@ -180,7 +181,7 @@ public class FenetreJeu extends JFrame{
 		
 		public void repeindre(int i, int j, Jeton jeton){
 			this.panneau.ajoutJeton(i,j,jeton);
-			this.panneau.repaint();
+			//this.panneau.repaint();
 		}
 
 

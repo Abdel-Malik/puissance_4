@@ -36,7 +36,22 @@ public class PanneauJeu extends JPanel{
 	}
 
 	public void ajoutJeton(int i, int j, Jeton jeton) {
+		for(int ip = 0; ip<i;ip++){
+			this.grilleJeton[ip][j] = jeton;
+			try {
+				Thread.sleep(120);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			this.paintComponent(this.getGraphics());
+			this.grilleJeton[ip][j] = Jeton.Vide;
+		}
+		try {
+			Thread.sleep(120);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		this.grilleJeton[i][j] = jeton;
-		
+		this.paintComponent(this.getGraphics());
 	}
 }
