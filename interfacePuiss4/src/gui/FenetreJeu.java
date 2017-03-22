@@ -8,6 +8,8 @@ import java.awt.GridLayout;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.*;
 
@@ -123,7 +125,7 @@ public class FenetreJeu extends JFrame{
 			layoutBoutons.minimumLayoutSize(panelBoutons);
 			panelBoutons.setLayout(layoutBoutons);
 			panelBoutons.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.darkGray));
-			initialisationBoutons(panelBoutons);
+			initialisationClique(panelBoutons);
 
 			this.panneau.setSize(new Dimension(largeur,hauteur-h));
 			d.add(panelBoutons);
@@ -131,7 +133,16 @@ public class FenetreJeu extends JFrame{
 		}
 
 
-		private void initialisationBoutons(JPanel panel){
+		private void initialisationClique(JPanel panel){
+			this.addMouseListener(new MouseListener(){			
+				@Override
+				public void mouseClicked ( MouseEvent ev ){ 
+					System.out.println( "clic dans fenetre" ) ; 
+					int x = ev.getX()/(panneau.getWidth()/Plateau.COLONNES);
+					int y = ev.getY()/(panneau.getHeight()/Plateau.LIGNES);
+					
+				}
+			});
 			this.colonnes = new BoutonColonne[Plateau.COLONNES];
 			for(int i =0; i<Plateau.COLONNES;i++){
 				this.colonnes[i] = new BoutonColonne(i);
@@ -192,5 +203,5 @@ public class FenetreJeu extends JFrame{
 		public void setNomJoueurs(String j1, String j2){
 			this.nomJ1.setText(j1);
 			this.nomJ2.setText(j2);
-}
+		}
 }
