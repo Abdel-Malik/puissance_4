@@ -89,7 +89,7 @@ public class Plateau {
 			val++;
 			jp++;
 		}
-		return (val==4);
+		return (val>=4);
 	}
 	private boolean colonneDe4(int i,int j){
 		int val = 1;
@@ -104,7 +104,7 @@ public class Plateau {
 			val++;
 			ip++;
 		}
-		return (val==4);
+		return (val>=4);
 	}
 	private boolean DiagoDroiteDe4(int i,int j){
 		int val = 1;
@@ -119,7 +119,7 @@ public class Plateau {
 			val++;
 			p++;
 		}
-		return (val==4);
+		return (val>=4);
 	}
 	private boolean DiagoGaucheDe4(int i,int j){
 		int val = 1;
@@ -134,7 +134,7 @@ public class Plateau {
 			val++;
 			p++;
 		}
-		return (val==4);
+		return (val>=4);
 	}
 	
 	private int valeurGrille(int i, int j){
@@ -169,7 +169,19 @@ public class Plateau {
 		this.joueurs[1] = joueur;		
 	}
 
-	public boolean isIA() {
+	public boolean j1IsIA() {
+		return this.joueurs[0].isIA();
+	}
+	public boolean j2IsIA() {
 		return this.joueurs[1].isIA();
+	}
+	
+	public boolean isCurrentIA(){
+		boolean b = false;
+		if(this.J1)
+			b = j1IsIA();
+		else
+			b = j2IsIA();
+		return b;
 	}
 }

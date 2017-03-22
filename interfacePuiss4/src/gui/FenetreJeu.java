@@ -56,7 +56,6 @@ public class FenetreJeu extends JFrame{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			this.setVisible(true);
 		}
 		
 		

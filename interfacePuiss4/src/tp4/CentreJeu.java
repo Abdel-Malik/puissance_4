@@ -41,18 +41,20 @@ public class CentreJeu extends Thread{
 
 	public void run(){
 		while(true){
-			while(!c.coupJouee()){
-				try {
-					Thread.sleep(100);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+			if(!p.isCurrentIA()){
+				while(!c.coupJouee()){
+					try {
+						Thread.sleep(100);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
 			}
 			if(!tourDeJeu())
 				break;
 			
-			if(p.isIA()&&!p.isJoueur1()){
+			if(p.isCurrentIA()){
 				try {
 					Thread.sleep(100);
 				} catch (InterruptedException e) {
