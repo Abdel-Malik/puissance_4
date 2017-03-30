@@ -13,13 +13,12 @@ public class CentreJeu extends Thread{
 	private Coup c;
 	
 	public CentreJeu(){
-		fj = new FenetreJeu("Puissance 4");
-		//fj.setVisible(false);
 		p = new Plateau();
 		ia = new StupideIA();
-		c = fj.getCoup();
-		fj.setVisible(false);
+		fj = new FenetreJeu("Puissance 4");
+
 		initialiserJoueurs();
+		c = fj.getCoup();
 		
 		this.start();
 	}

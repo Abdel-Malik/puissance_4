@@ -134,13 +134,26 @@ public class FenetreJeu extends JFrame{
 
 
 		private void initialisationClique(JPanel panel){
-			this.addMouseListener(new MouseListener(){			
+			d.addMouseListener(new MouseListener(){			
 				@Override
 				public void mouseClicked ( MouseEvent ev ){ 
-					System.out.println( "clic dans fenetre" ) ; 
-					int x = ev.getX()/(panneau.getWidth()/Plateau.COLONNES);
-					int y = ev.getY()/(panneau.getHeight()/Plateau.LIGNES);
-					
+					int x = (int)((ev.getX()/(double)d.getWidth())*Plateau.COLONNES);
+					if(fonctionne){
+						coupJouee.setColonne(x);
+						coupJouee.setCoupJouee(true);
+					}
+				}
+				@Override
+				public void mouseEntered(MouseEvent arg0) {					
+				}
+				@Override
+				public void mouseExited(MouseEvent arg0) {
+				}
+				@Override
+				public void mousePressed(MouseEvent arg0) {
+				}
+				@Override
+				public void mouseReleased(MouseEvent arg0) {
 				}
 			});
 			this.colonnes = new BoutonColonne[Plateau.COLONNES];
@@ -150,6 +163,7 @@ public class FenetreJeu extends JFrame{
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						if(fonctionne){
+							System.out.println( "clic dans fenetre" );
 							coupJouee.setColonne(((BoutonColonne)e.getSource()).getColonne());
 							coupJouee.setCoupJouee(true);
 						}
