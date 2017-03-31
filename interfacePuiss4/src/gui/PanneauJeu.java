@@ -23,7 +23,7 @@ public class PanneauJeu extends JPanel{
 				g.setColor(Color.BLUE);
 				g.fillRect((int)(j*d.getWidth()), (int)(i*d.getHeight()), (int)d.getWidth(), (int)d.getHeight());
 				g.setColor(this.grilleJeton[i][j].getColor());
-				g.fillOval((int)(j*d.getWidth()+5), (int)(i*d.getHeight()+5), (int)d.getWidth()-10, (int)d.getHeight()-10);
+				g.fillOval((int)(j*d.getWidth()+5), (int)(i*d.getHeight()+5), (int)d.getWidth()-10, (int)d.getHeight()-15);
 			}
 		}
 	}

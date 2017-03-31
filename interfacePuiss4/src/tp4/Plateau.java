@@ -1,5 +1,7 @@
 package tp4;
 
+import java.util.ArrayList;
+
 public class Plateau {
 	public static int LIGNES = 6;
 	public static int COLONNES = 7;
@@ -7,13 +9,35 @@ public class Plateau {
 	private boolean J1;
 	private Joueur[] joueurs;
 	private boolean jeuClos;
+	private boolean[] colonneDisponible;
 	
 	public Plateau(){
 		grille = new int[LIGNES][COLONNES];
 		J1 = true;
 		jeuClos = false;
 		joueurs = new Joueur[2];
+		colonneDisponible = new boolean[COLONNES];
+		initialiserTableau();
 		initialiserGrille();
+	}
+	
+	private void initialiserTableau(){
+		for(int i =0; i<COLONNES; i++){
+			colonneDisponible[i] = true;
+		}
+		
+	}
+
+	public void setColonnePleine(int i){
+		this.colonneDisponible[i] = false;
+	}
+	public int ColonneRestante(){
+		int a = 0;
+		for(int i = 0; i<COLONNES; i++){
+			if(colonneDisponible[i])
+				a++;
+		}
+		return a;
 	}
 	
 	private void initialiserGrille(){
@@ -47,7 +71,7 @@ public class Plateau {
 	public void joue(int i) throws ColonnePleineException{
 		if(!jeuClos){
 			if(i<0 || i >=COLONNES)
-				System.out.printf("clonne %d inexistante, jouez dans [0;%d]\n",i,COLONNES);
+				System.out.printf("colonne %d inexistante, jouez dans [0;%d]\n",i,COLONNES);
 			int jeton = 2;
 			if(J1)
 				jeton = 1;
@@ -204,6 +228,13 @@ public class Plateau {
 	private void copieJoueurs(Joueur[] j){
 		j[0] = this.joueurs[0].copie();
 		j[1] = this.joueurs[1].copie();
+	}
+	
+	public Joueur getCurrentJoueur(){
+		Joueur g = this.joueurs[1];
+		if(this.J1)
+			g = this.joueurs[0];
+		return g;
 	}
 
 }

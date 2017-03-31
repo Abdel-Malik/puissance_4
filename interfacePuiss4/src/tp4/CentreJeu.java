@@ -42,7 +42,7 @@ public class CentreJeu extends Thread{
 	public void run(){
 		while(true){
 			if(!p.isCurrentIA()){
-				while(!c.coupJouee()){
+				while(!c.coupJouee()&&(!p.jeuClos())){
 					try {
 						Thread.sleep(100);
 					} catch (InterruptedException e) {
@@ -50,10 +50,7 @@ public class CentreJeu extends Thread{
 						e.printStackTrace();
 					}
 				}
-			}
-			if(!tourDeJeu())
-				break;
-			
+			}			
 			if(p.isCurrentIA()){
 				try {
 					Thread.sleep(100);
@@ -63,29 +60,31 @@ public class CentreJeu extends Thread{
 				}
 				fj.choixIA(ia.choixColonne());
 			}
+			if(!tourDeJeu())
+				break;
 		}
 	}
 
 	private boolean tourDeJeu(){
 		boolean b = true;
-		if(!p.jeuClos()){
+		if(!p.jeuClos()&&p.ColonneRestante()>0){
 			Jeton j = Jeton.Jaune;
 			if(p.isJoueur1())
 				j= Jeton.Rouge;
 			try {
 				p.joue(c.getColonne());
 				fj.repeindre(p.getLigne(c.getColonne()), c.getColonne(), j);
-				p.imprime();
 			} catch (ColonnePleineException e) {
-				System.out.println("BOUYAHHHHHH");
+				System.out.println("Colonne_Pleine");
+				p.setColonnePleine(e.getColonnePleine());
 			}
 			c.setCoupJouee(false);
+		}else if(p.ColonneRestante()==0&&!p.jeuClos()){
+			fj.EgaliteFinale();
+			b = false;
 		}else{
 			b = false;
-			String win = "Joueur2";
-			if(p.isJoueur1())
-				win = "Joueur1";
-			System.out.printf("jeu clos, gagnant %s",win);
+			fj.ClorePartie(p.getCurrentJoueur());
 		}
 		return b;
 	}

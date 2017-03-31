@@ -25,7 +25,7 @@ public class PageJoueur extends JFrame{
 		this.ia = new JComboBox<String>();
 		this.valider = new JButton("valider");
 		this.ia.addItem("joueur");
-		this.ia.addItem("ia");
+		this.ia.addItem("ia LV:1");
 		this.valider.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e){
@@ -35,6 +35,7 @@ public class PageJoueur extends JFrame{
 				if(j1 == null){
 					PageJoueur.this.initialiserJoueur(1,ia,nom.getText());
 					nom.setText("");
+					nom.setFocusable(true);
 				}else{
 					PageJoueur.this.initialiserJoueur(2,ia,nom.getText());
 					nom.setText("");
@@ -63,6 +64,9 @@ public class PageJoueur extends JFrame{
 	}
 
 	private void initialiserJoueur(int numJoueur, boolean ia, String name){
+		String defaut = "Joueur "+numJoueur;
+		if(name.length() == 0)
+			name = defaut;
 		if(numJoueur == 1)
 			this.j1 = new Joueur(ia,name,numJoueur);
 		else

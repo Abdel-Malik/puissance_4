@@ -1,18 +1,17 @@
 package gui;
 
-import java.awt.Checkbox;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.GridLayout;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-
 import javax.swing.*;
 
+import tp4.Joueur;
 import tp4.Plateau;
 
 public class FenetreJeu extends JFrame{
@@ -41,8 +40,7 @@ public class FenetreJeu extends JFrame{
 	private JLabel nomJ1;
 	private JLabel nomJ2;
 	private JSplitPane paneAffichage;
-	//boutons de contrôle
-	private BoutonColonne[] colonnes;
+	private JLabel information;
 		
 		
 		
@@ -53,6 +51,7 @@ public class FenetreJeu extends JFrame{
 			this.largeur = DEFAULT_DIMENSION.width;
 			this.hauteur = DEFAULT_DIMENSION.height;
 			this.fps = DEFAULT_SPEED;
+			this.information = new JLabel("Partie en cours...");
 			this.coupJouee = new Coup();
 			initialisation();
 			try {
@@ -107,28 +106,24 @@ public class FenetreJeu extends JFrame{
 			g.add(this.nomJ1);
 			g.add(this.nomJ2);
 			JButton redemarrer = new JButton("redémarrer");
-			/*redemarrer.addActionListener(new ActionListener() {				
+			redemarrer.addActionListener(new ActionListener() {				
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					panneau.reinitialiserJeu();
+					//panneau.reinitialiserJeu();
 					
 				}
 			});
-			g.add(redemarrer);*/
-			//g.add(new JButton("abandonner"));
+			g.add(redemarrer);
+			g.add(new JButton("abandonner"));
 		}
 		private void structurationSplitPaneDroit() {
-			int h = DEFAULT_BUTTON_SIZE_Y+10;
-			JPanel panelBoutons = new JPanel();
-			panelBoutons.setMaximumSize(new Dimension(this.largeur, h));
-			GridLayout layoutBoutons = new GridLayout(1, Plateau.COLONNES);
-			layoutBoutons.minimumLayoutSize(panelBoutons);
-			panelBoutons.setLayout(layoutBoutons);
-			panelBoutons.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.darkGray));
-			initialisationClique(panelBoutons);
-
-			this.panneau.setSize(new Dimension(largeur,hauteur-h));
-			d.add(panelBoutons);
+			int h = DEFAULT_BUTTON_SIZE_Y+50;
+			JPanel panelInfo = new JPanel();
+			panelInfo.setMaximumSize(new Dimension(this.largeur, 100));
+			panelInfo.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.darkGray));
+			initialisationClique(panneau);
+			d.add(panelInfo);
+			panelInfo.add(information);
 			d.add(panneau);
 		}
 
@@ -156,21 +151,6 @@ public class FenetreJeu extends JFrame{
 				public void mouseReleased(MouseEvent arg0) {
 				}
 			});
-			this.colonnes = new BoutonColonne[Plateau.COLONNES];
-			for(int i =0; i<Plateau.COLONNES;i++){
-				this.colonnes[i] = new BoutonColonne(i);
-				this.colonnes[i].addActionListener(new ActionListener() {
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						if(fonctionne){
-							System.out.println( "clic dans fenetre" );
-							coupJouee.setColonne(((BoutonColonne)e.getSource()).getColonne());
-							coupJouee.setCoupJouee(true);
-						}
-					}
-				});
-				panel.add(this.colonnes[i]);
-			}
 		}
 
 		
@@ -217,5 +197,16 @@ public class FenetreJeu extends JFrame{
 		public void setNomJoueurs(String j1, String j2){
 			this.nomJ1.setText(j1);
 			this.nomJ2.setText(j2);
+		}
+		
+		public void ClorePartie(Joueur gagnant){
+			information.setText("Victoire de "+gagnant.getName());
+			fonctionne = false;
+		}
+
+
+		public void EgaliteFinale() {
+			information.setText("Egalité");
+			fonctionne = false;
 		}
 }
